@@ -60,11 +60,11 @@ def main(model_id, iterations=3, num_tokens=100, batch_sizes=[1]):
     
     print_rank0(f"------------\nWarming Up\n------------\n")
     warmpup_batch = model.batch_type.from_pb(
-        create_batch(max_tokens=100, batch_size=1), model.tokenizer, model.dtype, model.device
+        create_batch(max_tokens=10, batch_size=1), model.tokenizer, model.dtype, model.device
     )
     model.warmup(warmpup_batch)
 
-    del warmpup_batch
+    # del warmpup_batch
     
     throughput_dict = {}
     for batch_size in batch_sizes:

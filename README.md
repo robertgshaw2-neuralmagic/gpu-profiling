@@ -5,7 +5,11 @@ docker build -t tgi .
 
 Run:
 ```bash
-docker run --gpus all --shm-size 1g -v $PWD:/usr/src/profiling -v $PWD/data:/data --network host -it tgi
+token={your_hf_token}
+cd ..
+data_path=$PWD/data
+cd profiling
+docker run --gpus all --shm-size 1g -e HUGGING_FACE_HUB_TOKEN=$token -v $PWD:/usr/src/profiling -v $data_path:/data --network host -it tgi
 ```
 
 Download Weights (inside container):
@@ -22,7 +26,7 @@ jupyter notebook --allow-root
 
 Run the following:
 ```bash
-SAFETENSORS_FAST_GPU=1 python -m torch.distributed.run --nproc_per_node=4 profile.py --batch_sizes 64 32 16 8 1 --model_id bigscience/bloom-560m
+SAFETENSORS_FAST_GPU=1 python -m torch.distributed.run --nproc_per_node=4 profile.py --batch_sizes 1 --model_id meta-llama/Llama-2-7b-chat-hf
 ```
 
 The following can be used to disable custom kernels
