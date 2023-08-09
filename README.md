@@ -5,7 +5,7 @@ docker build -t tgi .
 
 Run:
 ```bash
-docker run --gpus all --shm-size 1g -v $PWD/profiling:/usr/src/profiling -v $PWD/data:/data --network host -it tgi
+docker run --gpus all --shm-size 1g -v $PWD:/usr/src/profiling -v $PWD/data:/data --network host -it tgi
 ```
 
 Download Weights (inside container):
